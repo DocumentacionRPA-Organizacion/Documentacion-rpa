@@ -4,64 +4,304 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recursos del proyecto RPA</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #2c3e50; /* Azul oscuro para la cabecera */
-            --secondary-color: #008080; /* Tono verde/azul para iconos */
-            --background-color: #89a2a7; /* Color de fondo gris claro, como en la imagen */
-            --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            --transition-speed: 0.3s;
+            --ink: #13313a;
+            --ink-soft: #4f6970;
+            --surface: rgba(255, 255, 255, 0.88);
+            --surface-strong: #ffffff;
+            --line: rgba(19, 49, 58, 0.1);
+            --accent: #0f8b8d;
+            --accent-dark: #0b5f73;
+            --accent-soft: #d9f2ef;
+            --hero-start: #153c52;
+            --hero-end: #0f8b8d;
+            --shadow: 0 24px 60px rgba(10, 36, 45, 0.14);
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--background-color); /* Fondo gris visible */
-            color: var(--primary-color);
-            line-height: 1.6;
-            padding: 0; 
             margin: 0;
-            text-align: center;
+            min-height: 100vh;
+            font-family: "Manrope", sans-serif;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at top left, rgba(255, 255, 255, 0.45), transparent 28%),
+                radial-gradient(circle at bottom right, rgba(15, 139, 141, 0.15), transparent 30%),
+                linear-gradient(180deg, #9eb5b8 0%, #c7d8da 100%);
         }
 
-        /* ESTILO DE LA CABECERA (BANNER AZUL) */
-        .header-container {
-            background-color: var(--primary-color);
-            color: white; 
-            padding: 40px 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            /* Le damos un pequeño borde redondeado superior como en la imagen */
-            margin: 0 auto 30px auto; /* Centra el banner y añade margen inferior */
+        .page-shell {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 28px 0 56px;
         }
 
-        .header-container h1 {
-            color: white;
-            margin-top: 0;
-            margin-bottom: 30px;
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: clamp(28px, 5vw, 52px);
+            border-radius: 30px;
+            color: #ffffff;
+            background: linear-gradient(135deg, var(--hero-start), var(--hero-end));
+            box-shadow: var(--shadow);
+            text-align: left;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: auto -60px -90px auto;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            font-size: 0.84rem;
             font-weight: 700;
-            font-size: 2em;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.14);
         }
-        
-        .header-container p {
-            color: #bdc3c7; 
-            font-size: 1.1em;
-            margin-bottom: 0;
+
+        .hero h1 {
+            margin: 18px 0 14px;
+            font-size: clamp(2rem, 4vw, 3.35rem);
+            line-height: 1.05;
         }
-        /* FIN ESTILO DE LA CABECERA */
+
+        .hero p {
+            margin: 0;
+            max-width: 700px;
+            font-size: 1.02rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.86);
+        }
 
         .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 25px;
-            margin: 0 auto;
-            max-width: 1200px;
-            padding: 20px; /* Añade espacio interior para ver el fondo gris */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 28px;
         }
 
         .folder-link {
             text-decoration: none;
             color: inherit;
+        }
+
+        .folder-box {
+            height: 100%;
+            min-height: 196px;
+            padding: 22px;
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            background: var(--surface);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 14px 35px rgba(11, 39, 47, 0.1);
+            transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .folder-box:hover {
+            transform: translateY(-6px);
+            border-color: rgba(15, 139, 141, 0.4);
+            box-shadow: 0 20px 44px rgba(11, 39, 47, 0.16);
+        }
+
+        .folder-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+        }
+
+        .folder-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 16px;
+            background: var(--accent-soft);
+            color: var(--accent-dark);
+            font-size: 1.35rem;
+            font-weight: 800;
+        }
+
+        .folder-arrow {
+            color: var(--accent);
+            font-size: 1.25rem;
+            font-weight: 800;
+            transition: transform 0.24s ease;
+        }
+
+        .folder-box:hover .folder-arrow {
+            transform: translateX(4px);
+        }
+
+        .folder-name {
+            margin: 0 0 10px;
+            font-size: 1.12rem;
+            line-height: 1.35;
+            font-weight: 800;
+            color: var(--ink);
+        }
+
+        .folder-description {
+            margin: 0;
+            color: var(--ink-soft);
+            font-size: 0.96rem;
+            line-height: 1.65;
+        }
+
+        @media (max-width: 640px) {
+            .page-shell {
+                width: min(100% - 20px, 1180px);
+                padding-top: 14px;
+            }
+
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .folder-box {
+                min-height: 178px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page-shell">
+        <section class="hero">
+            <span class="eyebrow">Repositorio RPA</span>
+            <h1>Contenido del proyecto RPA</h1>
+            <p>Accede a las carpetas principales del proyecto.</p>
+        </section>
+
+        <section class="container">
+            <a href="contenido.html?folder=0_documentacion_proyecto" class="folder-link">
+                <article class="folder-box">
+                    <div class="folder-top">
+                        <div class="folder-icon">01</div>
+                        <div class="folder-arrow" aria-hidden="true">→</div>
+                    </div>
+                    <div>
+                        <h2 class="folder-name">Documentación del proyecto</h2>
+                        <p class="folder-description">Planificación de iniciativas RPA, casos de uso y definición de alcance.</p>
+                    </div>
+                </article>
+            </a>
+
+            <a href="contenido.html?folder=1_estandares_y_metadatos" class="folder-link">
+                <article class="folder-box">
+                    <div class="folder-top">
+                        <div class="folder-icon">02</div>
+                        <div class="folder-arrow" aria-hidden="true">→</div>
+                    </div>
+                    <div>
+                        <h2 class="folder-name">Estándares y metadatos</h2>
+                        <p class="folder-description">Guías de codificación, convenciones de nomenclatura y requisitos de metadatos para bots RPA.</p>
+                    </div>
+                </article>
+            </a>
+
+            <a href="contenido.html?folder=2_recursos_estudiantes" class="folder-link">
+                <article class="folder-box">
+                    <div class="folder-top">
+                        <div class="folder-icon">03</div>
+                        <div class="folder-arrow" aria-hidden="true">→</div>
+                    </div>
+                    <div>
+                        <h2 class="folder-name">Recursos de estudiantes</h2>
+                        <p class="folder-description">Materiales de aprendizaje, ejercicios y tutoriales básicos de la herramienta UiPath.</p>
+                    </div>
+                </article>
+            </a>
+
+            <a href="contenido.html?folder=3_recursos_docentes" class="folder-link">
+                <article class="folder-box">
+                    <div class="folder-top">
+                        <div class="folder-icon">04</div>
+                        <div class="folder-arrow" aria-hidden="true">→</div>
+                    </div>
+                    <div>
+                        <h2 class="folder-name">Recursos de docentes</h2>
+                        <p class="folder-description">Guías de instrucción, presentaciones y recursos de apoyo para la enseñanza de RPA.</p>
+                    </div>
+                </article>
+            </a>
+
+            <a href="contenido.html?folder=4_herramienta_rpa" class="folder-link">
+                <article class="folder-box">
+                    <div class="folder-top">
+                        <div class="folder-icon">05</div>
+                        <div class="folder-arrow" aria-hidden="true">→</div>
+                    </div>
+                    <div>
+                        <h2 class="folder-name">Herramienta RPA</h2>
+                        <p class="folder-description">Información, plantillas y configuraciones relativas a la implementación de la herramienta RPA (UiPath).</p>
+                    </div>
+                </article>
+            </a>
+
+            <a href="contenido.html?folder=6_procesos_academicos_simulados" class="folder-link">
+                <article class="folder-box">
+                    <div class="folder-top">
+                        <div class="folder-icon">06</div>
+                        <div class="folder-arrow" aria-hidden="true">→</div>
+                    </div>
+                    <div>
+                        <h2 class="folder-name">Procesos académicos simulados</h2>
+                        <p class="folder-description">Ejemplos de automatizaciones de procesos clave en el entorno académico.</p>
+                    </div>
+                </article>
+            </a>
+
+            <a href="contenido.html?folder=7_evaluacion_y_retroalimentacion" class="folder-link">
+                <article class="folder-box">
+                    <div class="folder-top">
+                        <div class="folder-icon">07</div>
+                        <div class="folder-arrow" aria-hidden="true">→</div>
+                    </div>
+                    <div>
+                        <h2 class="folder-name">Evaluación y retroalimentación</h2>
+                        <p class="folder-description">Criterios de prueba, formularios de evaluación y mecanismos de mejora continua de los bots.</p>
+                    </div>
+                </article>
+            </a>
+
+            <a href="contenido.html?folder=8_informes_y_documentacion" class="folder-link">
+                <article class="folder-box">
+                    <div class="folder-top">
+                        <div class="folder-icon">08</div>
+                        <div class="folder-arrow" aria-hidden="true">→</div>
+                    </div>
+                    <div>
+                        <h2 class="folder-name">Informes y documentación</h2>
+                        <p class="folder-description">Resultados de ejecución, métricas de rendimiento e informes finales del proyecto RPA.</p>
+                    </div>
+                </article>
+            </a>
+        </section>
+    </main>
+</body>
+</html>
             display: block;
         }
         
