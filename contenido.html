@@ -3,279 +3,472 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title">Cargando Contenido...</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    
+    <title id="page-title">Cargando contenido...</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #2c3e50; /* Azul oscuro */
-            --secondary-color: #008080; /* Tono RPA (verde/azul) */
-            --background-color: #89a2a7; /* Fondo gris claro que elegiste */
-            --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            --transition-speed: 0.3s;
+            --ink: #13313a;
+            --ink-soft: #5e767d;
+            --surface: rgba(255, 255, 255, 0.9);
+            --surface-strong: #ffffff;
+            --line: rgba(19, 49, 58, 0.1);
+            --accent: #0f8b8d;
+            --accent-dark: #0b5f73;
+            --accent-soft: #d9f2ef;
+            --hero-start: #153c52;
+            --hero-end: #0f8b8d;
+            --shadow: 0 24px 60px rgba(10, 36, 45, 0.14);
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--background-color); 
-            color: var(--primary-color);
-            line-height: 1.6;
-            padding: 0; 
             margin: 0;
-            text-align: center;
+            min-height: 100vh;
+            font-family: "Manrope", sans-serif;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at top left, rgba(255, 255, 255, 0.42), transparent 28%),
+                radial-gradient(circle at bottom right, rgba(15, 139, 141, 0.16), transparent 32%),
+                linear-gradient(180deg, #9eb5b8 0%, #c7d8da 100%);
         }
 
-        .header-container {
-            background-color: var(--primary-color);
-            color: white; 
-            padding: 40px 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            width: 100%; 
-            margin-bottom: 30px; 
+        .page-shell {
+            width: min(1040px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 28px 0 56px;
         }
 
-        .header-container h1 {
-            color: white;
-            margin-top: 0;
-            margin-bottom: 10px;
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: clamp(28px, 5vw, 48px);
+            border-radius: 30px;
+            color: #ffffff;
+            background: linear-gradient(135deg, var(--hero-start), var(--hero-end));
+            box-shadow: var(--shadow);
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: auto -80px -110px auto;
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            font-size: 0.84rem;
             font-weight: 700;
-            font-size: 2em;
-        }
-        
-        .header-container p {
-            color: #bdc3c7; 
-            font-size: 1.1em;
-            margin-bottom: 0;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.14);
         }
 
-        .container {
+        .hero h1 {
+            margin: 18px 0 10px;
+            font-size: clamp(1.9rem, 4vw, 3rem);
+            line-height: 1.08;
+        }
+
+        .hero p {
+            margin: 0;
+            max-width: 720px;
+            color: rgba(255, 255, 255, 0.86);
+            line-height: 1.7;
+        }
+
+        .actions {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 25px;
-            margin: 0 auto;
-            max-width: 1200px;
-            padding: 20px; 
+            gap: 12px;
+            margin: 20px 0 14px;
         }
 
-        /* Estilos específicos para la lista de contenido */
-        .content-list {
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: left;
-            padding: 30px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: var(--box-shadow);
-        }
-        .content-item {
-            padding: 12px 0;
-            border-bottom: 1px solid #eee;
-            display: flex;
+        .action-link {
+            display: inline-flex;
             align-items: center;
-        }
-        .content-item:last-child {
-            border-bottom: none;
-        }
-        .content-item a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 500;
-            margin-left: 10px;
-            word-break: break-all;
-        }
-        .content-item a:hover {
-            color: var(--secondary-color);
-            text-decoration: underline;
-        }
-        .content-icon {
-            font-size: 1.2em;
-            color: var(--secondary-color);
-        }
-
-        /* Estilos de la ruta de navegación (Breadcrumb) */
-        .breadcrumb {
-            text-align: left;
-            max-width: 800px;
-            margin: 0 auto 15px auto;
-            padding: 0 10px;
-            font-size: 0.9em;
-            color: #555;
-        }
-        .breadcrumb a {
-            color: #555;
-            text-decoration: none;
-        }
-        .breadcrumb a:hover {
-            color: var(--secondary-color);
-            text-decoration: underline;
-        }
-
-        /* Estilo para el botón de Volver */
-        .back-button {
-            display: inline-block;
-            padding: 8px 15px;
-            background-color: #f0f0f0;
-            color: var(--primary-color) !important;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            text-decoration: none;
+            gap: 8px;
+            padding: 12px 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(15, 139, 141, 0.18);
+            background: rgba(255, 255, 255, 0.82);
+            color: var(--ink);
             font-weight: 700;
-            transition: background-color 0.2s;
-            font-size: 0.9em;
-            margin-bottom: 20px; /* Separación del botón con la lista de contenido */
+            text-decoration: none;
+            box-shadow: 0 10px 28px rgba(11, 39, 47, 0.08);
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .back-button:hover {
-            background-color: #e0e0e0;
+        .action-link:hover {
+            transform: translateY(-2px);
+            border-color: rgba(15, 139, 141, 0.4);
+            box-shadow: 0 14px 30px rgba(11, 39, 47, 0.12);
+        }
+
+        .breadcrumb {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 18px;
+            color: var(--ink-soft);
+            font-size: 0.95rem;
+        }
+
+        .breadcrumb a,
+        .breadcrumb span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.72);
             text-decoration: none;
+            color: inherit;
+            border: 1px solid rgba(19, 49, 58, 0.06);
+        }
+
+        .breadcrumb a:hover {
+            color: var(--accent-dark);
+        }
+
+        .breadcrumb-separator {
+            color: rgba(19, 49, 58, 0.45);
+            font-weight: 700;
+        }
+
+        .content-panel {
+            padding: 24px;
+            border-radius: 28px;
+            background: var(--surface);
+            box-shadow: 0 18px 44px rgba(11, 39, 47, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(12px);
+        }
+
+        .panel-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: end;
+            justify-content: space-between;
+            gap: 10px 16px;
+            margin-bottom: 20px;
+        }
+
+        .panel-header h2 {
+            margin: 0;
+            font-size: 1.35rem;
+        }
+
+        .panel-header p {
+            margin: 0;
+            color: var(--ink-soft);
+        }
+
+        .content-list {
+            display: grid;
+            gap: 14px;
+        }
+
+        .content-item {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 18px;
+            border-radius: 20px;
+            background: var(--surface-strong);
+            border: 1px solid var(--line);
+            color: var(--ink);
+            text-decoration: none;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .content-item:hover {
+            transform: translateY(-2px);
+            border-color: rgba(15, 139, 141, 0.32);
+            box-shadow: 0 14px 30px rgba(11, 39, 47, 0.08);
+        }
+
+        .content-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            background: var(--accent-soft);
+            color: var(--accent-dark);
+            font-size: 1.2rem;
+        }
+
+        .content-meta {
+            min-width: 0;
+        }
+
+        .content-name {
+            display: block;
+            font-weight: 800;
+            line-height: 1.4;
+            word-break: break-word;
+        }
+
+        .content-type {
+            display: block;
+            margin-top: 4px;
+            color: var(--ink-soft);
+            font-size: 0.92rem;
+        }
+
+        .content-arrow {
+            color: var(--accent);
+            font-size: 1.1rem;
+            font-weight: 800;
+        }
+
+        .status-message,
+        .error-message {
+            padding: 18px;
+            border-radius: 18px;
+            line-height: 1.6;
+        }
+
+        .status-message {
+            background: rgba(255, 255, 255, 0.76);
+            color: var(--ink-soft);
+        }
+
+        .error-message {
+            background: rgba(176, 31, 31, 0.08);
+            color: #8f1f1f;
+            border: 1px solid rgba(176, 31, 31, 0.14);
+        }
+
+        @media (max-width: 640px) {
+            .page-shell {
+                width: min(100% - 20px, 1040px);
+                padding-top: 14px;
+            }
+
+            .content-panel {
+                padding: 18px;
+            }
+
+            .content-item {
+                grid-template-columns: auto 1fr;
+            }
+
+            .content-arrow {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
+    <main class="page-shell">
+        <section class="hero">
+            <span class="hero-label">Explorador de carpetas</span>
+            <h1 id="titulo-carpeta">Cargando contenido...</h1>
+            <p>Navega entre carpetas y archivos del repositorio con una ruta más clara y un acceso rápido para volver.</p>
+        </section>
 
-    <div class="header-container">
-        <h1 id="titulo-carpeta">Cargando Contenido Dinámico...</h1> 
-        <p>Mostrando contenido actualizado en tiempo real desde GitHub.</p>
-    </div>
-
-    <div class="breadcrumb" id="breadcrumb-links">
+        <div class="actions">
+            <a id="back-button" class="action-link" href="index.html">← Volver</a>
+            <a class="action-link" href="index.html">⌂ Inicio</a>
         </div>
 
-    <div class="container">
-        <div id="back-button-container" style="width: 100%; max-width: 800px; margin: 0 auto; text-align: left;">
-            </div>
+        <nav class="breadcrumb" id="breadcrumb-links" aria-label="Ruta de navegación"></nav>
 
-        <div class="content-list">
-            <h2>Contenido</h2>
-            <div id="lista-contenido">
+        <section class="content-panel">
+            <div class="panel-header">
+                <h2>Contenido disponible</h2>
+                <p id="panel-subtitle">Cargando datos del repositorio...</p>
             </div>
-        </div>
-    </div>
+            <div id="lista-contenido" class="content-list" aria-live="polite"></div>
+        </section>
+    </main>
 
     <script>
-        // === 1. CONFIGURACIÓN: VALORES FINALES DE TU REPOSITORIO ===
-        const GITHUB_USERNAME = "desarrollo-rpa"; 
-        const REPOSITORY_NAME = "Documentacion-rpa"; 
-        const REPOSITORY_SLUG = "Documentacion-rpa"; // Usamos el nombre con guiones
+        const GITHUB_USERNAME = "DocumentacionRPA-Organizacion";
+        const REPOSITORY_SLUG = "Documentacion-rpa";
         const BRANCH_NAME = "main";
-        
-        const GITHUB_API_URL = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPOSITORY_SLUG}/contents`;
-        const GITHUB_BASE_URL = `https://github.com/${GITHUB_USERNAME}/${REPOSITORY_SLUG}/tree/${BRANCH_NAME}`;
-        // =================================================
 
-        // Función auxiliar para obtener la ruta del padre (para el botón Volver)
-        function getParentPath(path) {
-            const parts = path.split('/');
-            // Si solo hay una parte (carpeta principal), el padre es el índice
-            if (parts.length <= 1) {
-                return 'index.html';
+        const GITHUB_API_URL = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPOSITORY_SLUG}/contents`;
+
+        const FOLDER_LABELS = {
+            "0_documentacion_proyecto": "Documentación del proyecto",
+            "1_estandares_y_metadatos": "Estándares y metadatos",
+            "2_recursos_estudiantes": "Recursos de estudiantes",
+            "3_recursos_docentes": "Recursos de docentes",
+            "4_herramienta_rpa": "Herramienta RPA",
+            "6_procesos_academicos_simulados": "Procesos académicos simulados",
+            "7_evaluacion_y_retroalimentacion": "Evaluación y retroalimentación",
+            "8_informes_y_documentacion": "Informes y documentación",
+            "9_Diplomas": "Diplomas"
+        };
+
+        function prettifySegment(segment) {
+            if (FOLDER_LABELS[segment]) {
+                return FOLDER_LABELS[segment];
             }
-            // Si hay más, eliminamos la última parte para obtener la ruta del padre
-            parts.pop();
-            return `contenido.html?folder=${parts.join('/')}`;
+
+            return segment
+                .replace(/^\d+_?/, "")
+                .replace(/[_-]+/g, " ")
+                .replace(/\b\w/g, char => char.toUpperCase());
         }
 
-        // Función para generar la ruta de navegación interactiva
-        function generarBreadcrumb(path) {
-            const breadcrumbElement = document.getElementById('breadcrumb-links');
-            const parts = path.split('/');
-            let currentPath = '';
-            let html = `<a href="index.html">Índice Principal</a> &gt; `;
+        function getParentHref(path) {
+            const parts = path.split("/").filter(Boolean);
+
+            if (parts.length <= 1) {
+                return "index.html";
+            }
+
+            parts.pop();
+            return `contenido.html?folder=${encodeURIComponent(parts.join("/"))}`;
+        }
+
+        function updateBackButton(path) {
+            const backButton = document.getElementById("back-button");
+            const parts = path.split("/").filter(Boolean);
+
+            if (parts.length <= 1) {
+                backButton.href = "index.html";
+                backButton.textContent = "← Volver al inicio";
+                return;
+            }
+
+            const parentSegment = parts[parts.length - 2];
+            backButton.href = getParentHref(path);
+            backButton.textContent = `← Volver a ${prettifySegment(parentSegment)}`;
+        }
+
+        function renderBreadcrumb(path) {
+            const breadcrumb = document.getElementById("breadcrumb-links");
+            const parts = path.split("/").filter(Boolean);
+            let currentPath = "";
+            let html = '<a href="index.html">Inicio</a>';
 
             parts.forEach((part, index) => {
-                if (index === 0) {
-                    currentPath = part;
-                } else {
-                    currentPath += '/' + part;
-                }
-                
+                currentPath = currentPath ? `${currentPath}/${part}` : part;
+                html += '<span class="breadcrumb-separator">›</span>';
+
                 if (index < parts.length - 1) {
-                    // Crea un enlace navegable para las rutas intermedias
-                    html += `<a href="contenido.html?folder=${currentPath}">${part}</a> &gt; `;
+                    html += `<a href="contenido.html?folder=${encodeURIComponent(currentPath)}">${prettifySegment(part)}</a>`;
                 } else {
-                    // El último elemento es el actual
-                    html += `<span>${part}</span>`;
+                    html += `<span>${prettifySegment(part)}</span>`;
                 }
             });
-            breadcrumbElement.innerHTML = html;
+
+            breadcrumb.innerHTML = html;
         }
 
-        function cargarContenidoDinamico() {
+        function renderItems(items, folderPath) {
+            const list = document.getElementById("lista-contenido");
+            const subtitle = document.getElementById("panel-subtitle");
+
+            if (!items.length) {
+                subtitle.textContent = "No hay elementos en esta carpeta.";
+                list.innerHTML = '<div class="status-message">Esta carpeta está vacía por ahora.</div>';
+                return;
+            }
+
+            subtitle.textContent = `${items.length} elemento${items.length === 1 ? "" : "s"} encontrado${items.length === 1 ? "" : "s"}.`;
+
+            const sortedItems = [...items].sort((a, b) => {
+                if (a.type === "dir" && b.type !== "dir") {
+                    return -1;
+                }
+
+                if (a.type !== "dir" && b.type === "dir") {
+                    return 1;
+                }
+
+                return a.name.localeCompare(b.name, "es");
+            });
+
+            list.innerHTML = sortedItems.map(item => {
+                const isDirectory = item.type === "dir";
+                const itemPath = `${folderPath}/${item.name}`;
+                const href = isDirectory
+                    ? `contenido.html?folder=${encodeURIComponent(itemPath)}`
+                    : (item.download_url || item.html_url || "#");
+                const target = isDirectory ? "" : ' target="_blank" rel="noopener noreferrer"';
+                const icon = isDirectory ? "📁" : "📄";
+                const typeLabel = isDirectory ? "Carpeta" : "Archivo";
+                const arrow = isDirectory ? "→" : "↗";
+
+                return `
+                    <a class="content-item" href="${href}"${target}>
+                        <span class="content-icon" aria-hidden="true">${icon}</span>
+                        <span class="content-meta">
+                            <span class="content-name">${item.name}</span>
+                            <span class="content-type">${typeLabel}</span>
+                        </span>
+                        <span class="content-arrow" aria-hidden="true">${arrow}</span>
+                    </a>
+                `;
+            }).join("");
+        }
+
+        async function cargarContenidoDinamico() {
             const params = new URLSearchParams(window.location.search);
-            const folderPath = params.get('folder'); // Ruta completa (ej: 0_doc/subcarpeta)
-            
-            const tituloElement = document.getElementById('titulo-carpeta');
-            const listaElement = document.getElementById('lista-contenido');
-            const pageTitleElement = document.getElementById('page-title');
-            const backButtonContainer = document.getElementById('back-button-container');
+            const folderPath = params.get("folder");
+
+            const titleElement = document.getElementById("titulo-carpeta");
+            const pageTitleElement = document.getElementById("page-title");
+            const listElement = document.getElementById("lista-contenido");
 
             if (!folderPath) {
                 window.location.href = "index.html";
                 return;
             }
 
-            // --- Actualizar la Interfaz ---
-            const displayTitle = folderPath.split('/').pop();
-            tituloElement.textContent = `${displayTitle}`;
-            pageTitleElement.textContent = `Contenido: ${folderPath}`;
-            listaElement.innerHTML = '<p>Cargando contenido dinámico desde GitHub...</p>';
-            
-            generarBreadcrumb(folderPath);
+            const parts = folderPath.split("/").filter(Boolean);
+            const currentSegment = parts[parts.length - 1] || folderPath;
+            const displayTitle = prettifySegment(currentSegment);
 
-            // 3. Realizar la solicitud a la API de GitHub
-            fetch(`${GITHUB_API_URL}/${folderPath}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`Error ${response.status}: La ruta "${folderPath}" no es válida o no existe.`);
+            titleElement.textContent = displayTitle;
+            pageTitleElement.textContent = `${displayTitle} | Proyecto RPA`;
+            listElement.innerHTML = '<div class="status-message">Cargando contenido del repositorio...</div>';
+
+            updateBackButton(folderPath);
+            renderBreadcrumb(folderPath);
+
+            try {
+                const response = await fetch(`${GITHUB_API_URL}/${folderPath}`, {
+                    headers: {
+                        Accept: "application/vnd.github+json"
                     }
-                    return response.json();
-                })
-                .then(data => {
-                    let htmlContent = '';
-                    
-                    // Ordenar: Directorios primero, luego archivos
-                    data.sort((a, b) => {
-                        if (a.type === 'dir' && b.type !== 'dir') return -1;
-                        if (a.type !== 'dir' && b.type === 'dir') return 1;
-                        return a.name.localeCompare(b.name);
-                    });
-                    
-                    data.forEach(item => {
-                        const icon = item.type === 'dir' ? '📁' : '📄';
-                        
-                        let targetLink;
-                        
-                        if (item.type === 'dir') {
-                            // SUBCARPETA: Enlaza de vuelta a contenido.html (navegación interna)
-                            const newFolderPath = `${folderPath}/${item.name}`;
-                            targetLink = `contenido.html?folder=${newFolderPath}`;
-                        } else {
-                            // ARCHIVO: Enlace directo a la URL de descarga/vista de GitHub (misma pestaña)
-                            // Usamos item.download_url para archivos descargables, o el enlace de la vista web.
-                            targetLink = item.download_url || `${GITHUB_BASE_URL}/${folderPath}/${item.name}`;
-                        }
-                        
-                        // NOTA CLAVE: Eliminamos target="_blank" para que se abra en la misma pestaña
-                        htmlContent += `
-                            <div class="content-item">
-                                <span class="content-icon">${icon}</span> <a href="${targetLink}">${item.name}</a>
-                            </div>
-                        `;
-                    });
-
-                    listaElement.innerHTML = htmlContent;
-                })
-                .catch(error => {
-                    console.error('Error al cargar datos de GitHub:', error);
-                    listaElement.innerHTML = `<p style="color: red;">¡Error de Conexión! ${error.message}</p>`;
                 });
+
+                if (!response.ok) {
+                    throw new Error(`Error ${response.status}: no se pudo abrir la ruta "${folderPath}".`);
+                }
+
+                const data = await response.json();
+                renderItems(data, folderPath);
+            } catch (error) {
+                console.error("Error al cargar datos de GitHub:", error);
+                document.getElementById("panel-subtitle").textContent = "No fue posible cargar esta carpeta.";
+                listElement.innerHTML = `<div class="error-message">${error.message}</div>`;
+            }
         }
 
-        window.onload = cargarContenidoDinamico;
+        window.addEventListener("load", cargarContenidoDinamico);
     </script>
-
 </body>
 </html>
