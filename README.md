@@ -13,7 +13,7 @@ Reúne en un solo lugar la documentación de los proyectos de automatización, l
 | Carpeta | Contenido | Estado |
 |---|---|---|
 | [`0_documentacion_proyecto`](0_documentacion_proyecto) | Documentación del proyecto: análisis As-Is, modelo To-Be, PDD, SDD, entradas y salidas, plan y casos de prueba, diagrama de proceso y checklist de información | ✅ Con contenido |
-| [`1_estandares_y_metadatos`](1_estandares_y_metadatos) | Convenciones de nomenclatura y requisitos de metadatos | 🟡 Parcial |
+| [`1_estandares_y_metadatos`](1_estandares_y_metadatos) | Convenciones de nomenclatura y requisitos de metadatos | ✅ Con contenido |
 | [`2_recursos_estudiantes`](2_recursos_estudiantes) | Materiales de aprendizaje por nivel: básico, intermedio y avanzado | 🟡 Parcial |
 | [`3_recursos_docentes`](3_recursos_docentes) | Guías, presentaciones y rúbricas para la enseñanza de RPA | ⬜ Pendiente |
 | [`4_herramienta_rpa`](4_herramienta_rpa) | Manuales y plantillas por herramienta (UiPath, Automation Anywhere, Microsoft Power Automate) | 🟡 Parcial |
