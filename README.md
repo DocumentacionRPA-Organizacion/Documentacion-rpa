@@ -15,7 +15,7 @@ Reúne en un solo lugar la documentación de los proyectos de automatización, l
 | [`0_documentacion_proyecto`](0_documentacion_proyecto) | Documentación del proyecto: análisis As-Is, modelo To-Be, PDD, SDD, entradas y salidas, plan y casos de prueba, diagrama de proceso y checklist de información | ✅ Con contenido |
 | [`1_estandares_y_metadatos`](1_estandares_y_metadatos) | Convenciones de nomenclatura y requisitos de metadatos | ✅ Con contenido |
 | [`2_recursos_estudiantes`](2_recursos_estudiantes) | Materiales de aprendizaje por nivel: básico, intermedio y avanzado | 🟡 Parcial |
-| [`3_recursos_docentes`](3_recursos_docentes) | Guías, presentaciones y rúbricas para la enseñanza de RPA | ⬜ Pendiente |
+| [`3_recursos_docentes`](3_recursos_docentes) | Guías, presentaciones y rúbricas para la enseñanza de RPA | 🟡 Parcial|
 | [`4_herramienta_rpa`](4_herramienta_rpa) | Manuales y plantillas por herramienta (UiPath, Automation Anywhere, Microsoft Power Automate) | 🟡 Parcial |
 | [`5_procesos_academicos_simulados`](6_procesos_academicos_simulados) | Automatizaciones de ejemplo de procesos académicos | ⬜ Pendiente |
 | [`6_evaluacion_y_retroalimentacion`](7_evaluacion_y_retroalimentacion) | Criterios de prueba, encuestas y mejora continua | ⬜ Pendiente |
