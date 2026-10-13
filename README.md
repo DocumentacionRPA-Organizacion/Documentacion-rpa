@@ -17,10 +17,10 @@ Reúne en un solo lugar la documentación de los proyectos de automatización, l
 | [`2_recursos_estudiantes`](2_recursos_estudiantes) | Materiales de aprendizaje por nivel: básico, intermedio y avanzado | 🟡 Parcial |
 | [`3_recursos_docentes`](3_recursos_docentes) | Guías, presentaciones y rúbricas para la enseñanza de RPA | ⬜ Pendiente |
 | [`4_herramienta_rpa`](4_herramienta_rpa) | Manuales y plantillas por herramienta (UiPath, Automation Anywhere, Microsoft Power Automate) | 🟡 Parcial |
-| [`6_procesos_academicos_simulados`](6_procesos_academicos_simulados) | Automatizaciones de ejemplo de procesos académicos | ⬜ Pendiente |
-| [`7_evaluacion_y_retroalimentacion`](7_evaluacion_y_retroalimentacion) | Criterios de prueba, encuestas y mejora continua | ⬜ Pendiente |
-| [`8_informes_y_documentacion`](8_informes_y_documentacion) | Resultados de ejecución, métricas e informes finales | ⬜ Pendiente |
-| [`9_Diplomas`](9_Diplomas) | Documentación del bot generador de diplomas (general e individual) | ✅ Con contenido |
+| [`5_procesos_academicos_simulados`](6_procesos_academicos_simulados) | Automatizaciones de ejemplo de procesos académicos | ⬜ Pendiente |
+| [`6_evaluacion_y_retroalimentacion`](7_evaluacion_y_retroalimentacion) | Criterios de prueba, encuestas y mejora continua | ⬜ Pendiente |
+| [`7_informes_y_documentacion`](8_informes_y_documentacion) | Resultados de ejecución, métricas e informes finales | ⬜ Pendiente |
+| [`8_Diplomas`](9_Diplomas) | Documentación del bot generador de diplomas (general e individual) | ✅ Con contenido |
 
 ### Proyecto documentado
 
