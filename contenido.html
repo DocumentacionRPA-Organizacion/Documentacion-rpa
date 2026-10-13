@@ -128,7 +128,7 @@
         }
 
         .breadcrumb a,
-        .breadcrumb span {
+        .breadcrumb-current {
             display: inline-flex;
             align-items: center;
             gap: 8px;
@@ -285,8 +285,8 @@
         </section>
 
         <div class="actions">
-            <a id="back-button" class="action-link" href="index.html">← Volver</a>
-            <a class="action-link" href="index.html">⌂ Inicio</a>
+            <a id="back-button" class="action-link" href="./">← Volver</a>
+            <a id="home-button" class="action-link" href="./">⌂ Inicio</a>
         </div>
 
         <nav class="breadcrumb" id="breadcrumb-links" aria-label="Ruta de navegación"></nav>
@@ -305,106 +305,163 @@
         const REPOSITORY_SLUG = "Documentacion-rpa";
         const BRANCH_NAME = "main";
 
+        // Misma URL que la portada publicada ("./"), para no abrir una copia
+        // antigua de index.html guardada en caché. Al abrir el archivo en local
+        // (file://) "./" mostraría la carpeta, así que ahí se usa index.html.
+        const HOME_URL = window.location.protocol === "file:" ? "index.html" : "./";
+
         const GITHUB_API_URL = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPOSITORY_SLUG}/contents`;
 
         const FOLDER_LABELS = {
             "0_documentacion_proyecto": "Documentación del proyecto",
             "1_estandares_y_metadatos": "Estándares y metadatos",
             "2_recursos_estudiantes": "Recursos de estudiantes",
+            "2.1_Basico": "Básico",
+            "2.2_Intermedio": "Intermedio",
+            "2.3_Avanzado": "Avanzado",
             "3_recursos_docentes": "Recursos de docentes",
             "4_herramienta_rpa": "Herramienta RPA",
+            "4.2_automation_anywhere": "Automation Anywhere",
             "5_procesos_academicos_simulados": "Procesos académicos simulados",
             "6_evaluacion_y_retroalimentacion": "Evaluación y retroalimentación",
             "7_informes_y_documentacion": "Informes y documentación",
-            "8_Diplomas": "Diplomas"
+            "8_Diplomas": "Diplomas",
+            "8.1_DiplomaGeneral": "Diploma general",
+            "8.2_DiplomasIndividuales": "Diplomas individuales"
         };
+
+        // Palabras con escritura fija sin importar cómo se nombre la carpeta.
+        const WORD_LABELS = {
+            "uipath": "UiPath",
+            "rpa": "RPA"
+        };
+
+        function escapeHtml(text) {
+            return String(text)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#39;");
+        }
+
+        function splitPath(path) {
+            return String(path || "")
+                .split("/")
+                .map(part => part.trim())
+                .filter(part => part && part !== "." && part !== "..");
+        }
+
+        function folderHref(path) {
+            return `contenido.html?folder=${encodeURIComponent(path)}`;
+        }
 
         function prettifySegment(segment) {
             if (FOLDER_LABELS[segment]) {
                 return FOLDER_LABELS[segment];
             }
 
-            return segment
-                .replace(/^\d+_?/, "")
-                .replace(/[_-]+/g, " ")
-                .replace(/\b\w/g, char => char.toUpperCase());
-        }
+            const words = segment
+                .replace(/^[\d.]+[_-]?/, "")   // quita el prefijo numérico (2_, 2.1_, 4.2_)
+                .split(/[_\-\s]+/)
+                .filter(Boolean)
+                .flatMap(word => {
+                    const fixed = WORD_LABELS[word.toLowerCase()];
 
-        function getParentHref(path) {
-            const parts = path.split("/").filter(Boolean);
+                    // "UiPath" se respeta; "DiplomaGeneral" se separa en dos palabras
+                    return fixed ? [fixed] : word.replace(/([a-záéíóúñ])([A-ZÁÉÍÓÚÑ])/g, "$1 $2").split(" ");
+                });
 
-            if (parts.length <= 1) {
-                return "index.html";
+            if (!words.length) {
+                return segment;
             }
 
-            parts.pop();
-            return `contenido.html?folder=${encodeURIComponent(parts.join("/"))}`;
+            return words
+                .map((word, index) => {
+                    const fixed = WORD_LABELS[word.toLowerCase()];
+
+                    if (fixed) {
+                        return fixed;
+                    }
+
+                    if (index === 0) {
+                        return word.charAt(0).toUpperCase() + word.slice(1);
+                    }
+
+                    return word.toLowerCase();
+                })
+                .join(" ");
         }
 
-        function updateBackButton(path) {
+        function updateBackButton(parts) {
             const backButton = document.getElementById("back-button");
-            const parts = path.split("/").filter(Boolean);
 
             if (parts.length <= 1) {
-                backButton.href = "index.html";
+                backButton.href = HOME_URL;
                 backButton.textContent = "← Volver al inicio";
                 return;
             }
 
-            const parentSegment = parts[parts.length - 2];
-            backButton.href = getParentHref(path);
-            backButton.textContent = `← Volver a ${prettifySegment(parentSegment)}`;
+            const parentParts = parts.slice(0, -1);
+            backButton.href = folderHref(parentParts.join("/"));
+            backButton.textContent = `← Volver a ${prettifySegment(parentParts[parentParts.length - 1])}`;
         }
 
-        function renderBreadcrumb(path) {
+        function renderBreadcrumb(parts) {
             const breadcrumb = document.getElementById("breadcrumb-links");
-            const parts = path.split("/").filter(Boolean);
-            let currentPath = "";
-            let html = '<a href="index.html">Inicio</a>';
+            let html = `<a href="${escapeHtml(HOME_URL)}">Inicio</a>`;
 
             parts.forEach((part, index) => {
-                currentPath = currentPath ? `${currentPath}/${part}` : part;
-                html += '<span class="breadcrumb-separator">›</span>';
+                const label = escapeHtml(prettifySegment(part));
+                html += '<span class="breadcrumb-separator" aria-hidden="true">›</span>';
 
                 if (index < parts.length - 1) {
-                    html += `<a href="contenido.html?folder=${encodeURIComponent(currentPath)}">${prettifySegment(part)}</a>`;
+                    html += `<a href="${escapeHtml(folderHref(parts.slice(0, index + 1).join("/")))}">${label}</a>`;
                 } else {
-                    html += `<span>${prettifySegment(part)}</span>`;
+                    html += `<span class="breadcrumb-current" aria-current="page">${label}</span>`;
                 }
             });
 
             breadcrumb.innerHTML = html;
         }
 
-        function renderItems(items, folderPath) {
-            const list = document.getElementById("lista-contenido");
-            const subtitle = document.getElementById("panel-subtitle");
+        function showMessage(subtitleText, messageText, isError) {
+            document.getElementById("panel-subtitle").textContent = subtitleText;
 
-            if (!items.length) {
-                subtitle.textContent = "No hay elementos en esta carpeta.";
-                list.innerHTML = '<div class="status-message">Esta carpeta está vacía por ahora.</div>';
+            const list = document.getElementById("lista-contenido");
+            const box = document.createElement("div");
+            box.className = isError ? "error-message" : "status-message";
+            box.textContent = messageText;
+            list.replaceChildren(box);
+        }
+
+        function renderItems(items, folderPath) {
+            const visibleItems = items.filter(item => item && item.name && !item.name.startsWith("."));
+
+            if (!visibleItems.length) {
+                showMessage("No hay elementos en esta carpeta.", "Esta carpeta está vacía por ahora.", false);
                 return;
             }
 
-            subtitle.textContent = `${items.length} elemento${items.length === 1 ? "" : "s"} encontrado${items.length === 1 ? "" : "s"}.`;
+            const total = visibleItems.length;
+            document.getElementById("panel-subtitle").textContent =
+                `${total} elemento${total === 1 ? "" : "s"} encontrado${total === 1 ? "" : "s"}.`;
 
-            const sortedItems = [...items].sort((a, b) => {
-                if (a.type === "dir" && b.type !== "dir") {
-                    return -1;
+            const sortedItems = [...visibleItems].sort((a, b) => {
+                const aIsDir = a.type === "dir";
+                const bIsDir = b.type === "dir";
+
+                if (aIsDir !== bIsDir) {
+                    return aIsDir ? -1 : 1;
                 }
 
-                if (a.type !== "dir" && b.type === "dir") {
-                    return 1;
-                }
-
-                return a.name.localeCompare(b.name, "es");
+                return a.name.localeCompare(b.name, "es", { numeric: true, sensitivity: "base" });
             });
 
-            list.innerHTML = sortedItems.map(item => {
+            document.getElementById("lista-contenido").innerHTML = sortedItems.map(item => {
                 const isDirectory = item.type === "dir";
-                const itemPath = `${folderPath}/${item.name}`;
                 const href = isDirectory
-                    ? `contenido.html?folder=${encodeURIComponent(itemPath)}`
+                    ? folderHref(`${folderPath}/${item.name}`)
                     : (item.download_url || item.html_url || "#");
                 const target = isDirectory ? "" : ' target="_blank" rel="noopener noreferrer"';
                 const icon = isDirectory ? "📁" : "📄";
@@ -412,10 +469,10 @@
                 const arrow = isDirectory ? "→" : "↗";
 
                 return `
-                    <a class="content-item" href="${href}"${target}>
+                    <a class="content-item" href="${escapeHtml(href)}"${target}>
                         <span class="content-icon" aria-hidden="true">${icon}</span>
                         <span class="content-meta">
-                            <span class="content-name">${item.name}</span>
+                            <span class="content-name">${escapeHtml(item.name)}</span>
                             <span class="content-type">${typeLabel}</span>
                         </span>
                         <span class="content-arrow" aria-hidden="true">${arrow}</span>
@@ -426,49 +483,65 @@
 
         async function cargarContenidoDinamico() {
             const params = new URLSearchParams(window.location.search);
-            const folderPath = params.get("folder");
+            const parts = splitPath(params.get("folder"));
 
-            const titleElement = document.getElementById("titulo-carpeta");
-            const pageTitleElement = document.getElementById("page-title");
-            const listElement = document.getElementById("lista-contenido");
-
-            if (!folderPath) {
-                window.location.href = "index.html";
+            if (!parts.length) {
+                window.location.replace(HOME_URL);
                 return;
             }
 
-            const parts = folderPath.split("/").filter(Boolean);
-            const currentSegment = parts[parts.length - 1] || folderPath;
-            const displayTitle = prettifySegment(currentSegment);
+            document.getElementById("home-button").href = HOME_URL;
 
-            titleElement.textContent = displayTitle;
-            pageTitleElement.textContent = `${displayTitle} | Proyecto RPA`;
-            listElement.innerHTML = '<div class="status-message">Cargando contenido del repositorio...</div>';
+            const folderPath = parts.join("/");
+            const displayTitle = prettifySegment(parts[parts.length - 1]);
 
-            updateBackButton(folderPath);
-            renderBreadcrumb(folderPath);
+            document.getElementById("titulo-carpeta").textContent = displayTitle;
+            document.title = `${displayTitle} | Proyecto RPA`;
+
+            updateBackButton(parts);
+            renderBreadcrumb(parts);
+            showMessage("Cargando datos del repositorio...", "Cargando contenido del repositorio...", false);
+
+            const apiPath = parts.map(encodeURIComponent).join("/");
 
             try {
-                const response = await fetch(`${GITHUB_API_URL}/${folderPath}`, {
+                const response = await fetch(`${GITHUB_API_URL}/${apiPath}?ref=${encodeURIComponent(BRANCH_NAME)}`, {
                     headers: {
                         Accept: "application/vnd.github+json"
                     }
                 });
+
+                if (response.status === 403 || response.status === 429) {
+                    throw new Error("GitHub limitó temporalmente las consultas desde tu red (60 por hora sin iniciar sesión). Espera unos minutos y vuelve a cargar la página.");
+                }
+
+                if (response.status === 404) {
+                    throw new Error(`La carpeta "${folderPath}" no existe en el repositorio. Puede que se haya renombrado; vuelve al inicio.`);
+                }
 
                 if (!response.ok) {
                     throw new Error(`Error ${response.status}: no se pudo abrir la ruta "${folderPath}".`);
                 }
 
                 const data = await response.json();
+
+                if (!Array.isArray(data)) {
+                    throw new Error(`"${folderPath}" no es una carpeta.`);
+                }
+
                 renderItems(data, folderPath);
             } catch (error) {
                 console.error("Error al cargar datos de GitHub:", error);
-                document.getElementById("panel-subtitle").textContent = "No fue posible cargar esta carpeta.";
-                listElement.innerHTML = `<div class="error-message">${error.message}</div>`;
+
+                const message = error instanceof TypeError
+                    ? "No se pudo conectar con GitHub. Revisa tu conexión a internet y vuelve a cargar la página."
+                    : error.message;
+
+                showMessage("No fue posible cargar esta carpeta.", message, true);
             }
         }
 
-        window.addEventListener("load", cargarContenidoDinamico);
+        cargarContenidoDinamico();
     </script>
 </body>
 </html>
