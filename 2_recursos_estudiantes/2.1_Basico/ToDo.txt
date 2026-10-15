@@ -1,2 +1,0 @@
-2.1.A-01_Guia_Introduccion_RPA.pdf
-Explicación de qué es RPA y cómo ayuda dentro de una línea de producción.
