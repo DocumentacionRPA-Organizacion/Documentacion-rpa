@@ -1,0 +1,14 @@
+GUIA PARA EL DOCENTE
+  - 3.2.A-01_Guia_Docente_Bono_de_Productividad_UiPath_Web.pdf: preparacion, resultados esperados,
+    solucion de referencia, errores frecuentes y rubrica.
+  - 2.2.D-01_Guia_Estudiante_Bono_de_Productividad_UiPath_Web.pdf: lo que reciben los estudiantes.
+  - Recursos_Bono_de_Productividad/: datos de practica. Lo que reciben los estudiantes.
+  - Resultados_Esperados/: resultado esperado por empleado. NO se comparte con los estudiantes.
+
+SUGERENCIA
+  Cree una hoja plantilla BotFernanda_Datos con las 7 pestanas y pida a cada estudiante que la copie
+  (Archivo > Hacer una copia). Asi se evitan errores de nombre al importar.
+
+IMPORTANTE
+  El proyecto del bot (la solucion completa) no esta incluido a proposito. Guardelo en un espacio
+  solo para docentes.
