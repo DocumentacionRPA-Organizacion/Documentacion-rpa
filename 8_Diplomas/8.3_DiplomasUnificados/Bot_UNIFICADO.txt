@@ -1,0 +1,1490 @@
+{
+  "triggers": [],
+  "nodes": [
+    {
+      "uid": "0a9300fd-58c4-4179-982b-f8ac8cdd4aef",
+      "commandName": "assign",
+      "packageName": "String",
+      "disabled": false,
+      "attributes": [
+        {
+          "name": "sourceString",
+          "value": {
+            "type": "STRING",
+            "string": "C:\\RecursosAutomation\\DiplomasGenerados\\"
+          }
+        }
+      ],
+      "returnTo": {
+        "type": "VARIABLE",
+        "variableName": "CarpetaSalida"
+      }
+    },
+    {
+      "uid": "f6ef81af-5f48-4f7a-9dbc-4711b4d5365c",
+      "commandName": "OpenSpreadsheet",
+      "packageName": "Excel_MS",
+      "disabled": false,
+      "attributes": [
+        {
+          "name": "excelSourceOption",
+          "value": {
+            "type": "STRING",
+            "string": "desktopfilepath"
+          }
+        },
+        {
+          "name": "filePath",
+          "value": {
+            "type": "FILE",
+            "string": "file:///C:/RecursosAutomation/Datos_Diplomas_Ordenados.xlsx"
+          }
+        },
+        {
+          "name": "containsHeader",
+          "value": {
+            "type": "BOOLEAN",
+            "boolean": true
+          }
+        },
+        {
+          "name": "isSpecificSheet",
+          "value": {
+            "type": "BOOLEAN",
+            "boolean": false
+          }
+        },
+        {
+          "name": "fileAccessMode",
+          "value": {
+            "type": "STRING",
+            "string": "EDIT"
+          }
+        },
+        {
+          "name": "isSecure",
+          "value": {
+            "type": "BOOLEAN",
+            "boolean": false
+          }
+        },
+        {
+          "name": "loadAddIns",
+          "value": {
+            "type": "BOOLEAN",
+            "boolean": false
+          }
+        },
+        {
+          "name": "excludeHiddenSheets",
+          "value": {
+            "type": "BOOLEAN",
+            "boolean": false
+          }
+        },
+        {
+          "name": "containsChart",
+          "value": {
+            "type": "BOOLEAN",
+            "boolean": false
+          }
+        },
+        {
+          "name": "setSensitivity",
+          "value": {
+            "type": "BOOLEAN",
+            "boolean": false
+          }
+        }
+      ],
+      "returnTo": {
+        "type": "SESSION",
+        "sessionName": {
+          "type": "STRING",
+          "string": "alumnos"
+        },
+        "sessionTarget": "LOCAL"
+      }
+    },
+    {
+      "uid": "01b8115a-6993-4488-8bc7-263d8d4c0347",
+      "commandName": "getWorksheetAsDataTable",
+      "packageName": "Excel_MS",
+      "disabled": false,
+      "attributes": [
+        {
+          "name": "sheetSelection",
+          "value": {
+            "type": "STRING",
+            "string": "SpecificSheet"
+          }
+        },
+        {
+          "name": "fromSpecificSheet",
+          "value": {
+            "type": "STRING",
+            "string": "Diplomas"
+          }
+        },
+        {
+          "name": "containsHeader",
+          "value": {
+            "type": "BOOLEAN",
+            "boolean": true
+          }
+        },
+        {
+          "name": "readOption",
+          "value": {
+            "type": "STRING",
+            "string": "READ_CELL_TEXT"
+          }
+        },
+        {
+          "name": "session",
+          "value": {
+            "type": "SESSION",
+            "sessionName": {
+              "type": "STRING",
+              "string": "alumnos"
+            }
+          }
+        }
+      ],
+      "returnTo": {
+        "type": "VARIABLE",
+        "variableName": "TablaDiplomas"
+      }
+    },
+    {
+      "uid": "a3147418-cbc9-430d-aabd-a9d8dfdc5bf4",
+      "commandName": "getWorksheetAsDataTable",
+      "packageName": "Excel_MS",
+      "disabled": false,
+      "attributes": [
+        {
+          "name": "sheetSelection",
+          "value": {
+            "type": "STRING",
+            "string": "SpecificSheet"
+          }
+        },
+        {
+          "name": "fromSpecificSheet",
+          "value": {
+            "type": "STRING",
+            "string": "Participantes"
+          }
+        },
+        {
+          "name": "containsHeader",
+          "value": {
+            "type": "BOOLEAN",
+            "boolean": true
+          }
+        },
+        {
+          "name": "readOption",
+          "value": {
+            "type": "STRING",
+            "string": "READ_CELL_TEXT"
+          }
+        },
+        {
+          "name": "session",
+          "value": {
+            "type": "SESSION",
+            "sessionName": {
+              "type": "STRING",
+              "string": "alumnos"
+            }
+          }
+        }
+      ],
+      "returnTo": {
+        "type": "VARIABLE",
+        "variableName": "TablaParticipantes"
+      }
+    },
+    {
+      "uid": "9804e4a4-5558-49aa-b8be-e00ecd122b0d",
+      "commandName": "loop.commands.start",
+      "packageName": "Loop",
+      "children": [
+        {
+          "uid": "7faebc40-6e46-49dd-acd6-fa3c771584f8",
+          "commandName": "if",
+          "packageName": "If",
+          "children": [
+            {
+              "uid": "ed40a90e-c276-46cb-acd0-cfbd16763138",
+              "commandName": "assign",
+              "packageName": "String",
+              "disabled": false,
+              "attributes": [
+                {
+                  "name": "sourceString",
+                  "value": {
+                    "type": "STRING",
+                    "string": ""
+                  }
+                }
+              ],
+              "returnTo": {
+                "type": "VARIABLE",
+                "variableName": "NombresAcumulados"
+              }
+            },
+            {
+              "uid": "6652eacb-4bfc-4f58-9551-19d697c53310",
+              "commandName": "loop.commands.start",
+              "packageName": "Loop",
+              "children": [
+                {
+                  "uid": "974f2f5a-14cc-4633-a464-e11c778d225a",
+                  "commandName": "if",
+                  "packageName": "If",
+                  "children": [
+                    {
+                      "uid": "f7e3f2ca-415c-41e4-b1ab-e7758b71d66d",
+                      "commandName": "if",
+                      "packageName": "If",
+                      "children": [
+                        {
+                          "uid": "744df590-0a26-499f-92db-497d5a3a26be",
+                          "commandName": "if",
+                          "packageName": "If",
+                          "children": [
+                            {
+                              "uid": "82788b42-13a3-487b-9234-bffb68d17daa",
+                              "commandName": "if",
+                              "packageName": "If",
+                              "children": [
+                                {
+                                  "uid": "2da85342-9442-4b16-be3b-b2a38e19c2ad",
+                                  "commandName": "assign",
+                                  "packageName": "String",
+                                  "disabled": false,
+                                  "attributes": [
+                                    {
+                                      "name": "sourceString",
+                                      "value": {
+                                        "type": "STRING",
+                                        "expression": "$ParticipanteRow[3]$"
+                                      }
+                                    }
+                                  ],
+                                  "returnTo": {
+                                    "type": "VARIABLE",
+                                    "variableName": "NombresAcumulados"
+                                  }
+                                }
+                              ],
+                              "disabled": false,
+                              "attributes": [
+                                {
+                                  "attributes": [
+                                    {
+                                      "name": "variable",
+                                      "value": {
+                                        "type": "STRING",
+                                        "expression": "$NombresAcumulados$"
+                                      }
+                                    },
+                                    {
+                                      "name": "operator",
+                                      "value": {
+                                        "type": "STRING",
+                                        "string": "EQ"
+                                      }
+                                    },
+                                    {
+                                      "name": "value",
+                                      "value": {
+                                        "type": "STRING",
+                                        "string": ""
+                                      }
+                                    },
+                                    {
+                                      "name": "matchCase",
+                                      "value": {
+                                        "type": "BOOLEAN",
+                                        "boolean": true
+                                      }
+                                    },
+                                    {
+                                      "name": "isIgnoreCarriage",
+                                      "value": {
+                                        "type": "BOOLEAN",
+                                        "boolean": false
+                                      }
+                                    }
+                                  ],
+                                  "name": "condition",
+                                  "value": {
+                                    "type": "CONDITIONAL",
+                                    "conditionalName": "stringVariable",
+                                    "packageName": "String"
+                                  }
+                                }
+                              ],
+                              "branches": [
+                                {
+                                  "uid": "f8a9630f-0432-4023-8bf0-454886094b86",
+                                  "commandName": "else",
+                                  "packageName": "If",
+                                  "children": [
+                                    {
+                                      "uid": "a5347754-34b2-4d5d-acc8-f162549f2811",
+                                      "commandName": "assign",
+                                      "packageName": "String",
+                                      "disabled": false,
+                                      "attributes": [
+                                        {
+                                          "name": "sourceString",
+                                          "value": {
+                                            "type": "STRING",
+                                            "expression": "$NombresAcumulados$, $ParticipanteRow[3]$"
+                                          }
+                                        }
+                                      ],
+                                      "returnTo": {
+                                        "type": "VARIABLE",
+                                        "variableName": "NombresAcumulados"
+                                      }
+                                    }
+                                  ],
+                                  "disabled": false
+                                }
+                              ]
+                            }
+                          ],
+                          "disabled": false,
+                          "attributes": [
+                            {
+                              "attributes": [
+                                {
+                                  "name": "variable",
+                                  "value": {
+                                    "type": "STRING",
+                                    "expression": "$ParticipanteRow[3]$"
+                                  }
+                                },
+                                {
+                                  "name": "operator",
+                                  "value": {
+                                    "type": "STRING",
+                                    "string": "NEQ"
+                                  }
+                                },
+                                {
+                                  "name": "value",
+                                  "value": {
+                                    "type": "STRING",
+                                    "string": ""
+                                  }
+                                },
+                                {
+                                  "name": "matchCase",
+                                  "value": {
+                                    "type": "BOOLEAN",
+                                    "boolean": true
+                                  }
+                                },
+                                {
+                                  "name": "isIgnoreCarriage",
+                                  "value": {
+                                    "type": "BOOLEAN",
+                                    "boolean": false
+                                  }
+                                }
+                              ],
+                              "name": "condition",
+                              "value": {
+                                "type": "CONDITIONAL",
+                                "conditionalName": "stringVariable",
+                                "packageName": "String"
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "disabled": false,
+                      "attributes": [
+                        {
+                          "attributes": [
+                            {
+                              "name": "variable",
+                              "value": {
+                                "type": "STRING",
+                                "expression": "$ParticipanteRow[2]$"
+                              }
+                            },
+                            {
+                              "name": "operator",
+                              "value": {
+                                "type": "STRING",
+                                "string": "EQ"
+                              }
+                            },
+                            {
+                              "name": "value",
+                              "value": {
+                                "type": "STRING",
+                                "string": "SI"
+                              }
+                            },
+                            {
+                              "name": "matchCase",
+                              "value": {
+                                "type": "BOOLEAN",
+                                "boolean": true
+                              }
+                            },
+                            {
+                              "name": "isIgnoreCarriage",
+                              "value": {
+                                "type": "BOOLEAN",
+                                "boolean": false
+                              }
+                            }
+                          ],
+                          "name": "condition",
+                          "value": {
+                            "type": "CONDITIONAL",
+                            "conditionalName": "stringVariable",
+                            "packageName": "String"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "disabled": false,
+                  "attributes": [
+                    {
+                      "attributes": [
+                        {
+                          "name": "variable",
+                          "value": {
+                            "type": "STRING",
+                            "expression": "$ParticipanteRow[0]$"
+                          }
+                        },
+                        {
+                          "name": "operator",
+                          "value": {
+                            "type": "STRING",
+                            "string": "EQ"
+                          }
+                        },
+                        {
+                          "name": "value",
+                          "value": {
+                            "type": "STRING",
+                            "expression": "$DiplomaRow[1]$"
+                          }
+                        },
+                        {
+                          "name": "matchCase",
+                          "value": {
+                            "type": "BOOLEAN",
+                            "boolean": true
+                          }
+                        },
+                        {
+                          "name": "isIgnoreCarriage",
+                          "value": {
+                            "type": "BOOLEAN",
+                            "boolean": false
+                          }
+                        }
+                      ],
+                      "name": "condition",
+                      "value": {
+                        "type": "CONDITIONAL",
+                        "conditionalName": "stringVariable",
+                        "packageName": "String"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "disabled": false,
+              "attributes": [
+                {
+                  "name": "loopType",
+                  "value": {
+                    "type": "STRING",
+                    "string": "ITERATOR"
+                  }
+                },
+                {
+                  "name": "iterator",
+                  "returnTo": {
+                    "type": "VARIABLE",
+                    "variableName": "ParticipanteRow"
+                  },
+                  "attributes": [
+                    {
+                      "name": "sourceTable",
+                      "value": {
+                        "type": "VARIABLE",
+                        "variableName": "TablaParticipantes"
+                      }
+                    }
+                  ],
+                  "value": {
+                    "type": "ITERATOR",
+                    "iteratorName": "iteratorTableRow",
+                    "packageName": "DataTable"
+                  }
+                }
+              ]
+            },
+            {
+              "uid": "63710777-76f9-4db0-93d9-a529bb8adcaa",
+              "commandName": "if",
+              "packageName": "If",
+              "children": [
+                {
+                  "uid": "ca38bec2-b707-40ec-989c-ab2fd1d1647a",
+                  "commandName": "openDocument",
+                  "packageName": "msword",
+                  "disabled": false,
+                  "attributes": [
+                    {
+                      "name": "filePath",
+                      "value": {
+                        "type": "FILE",
+                        "string": "file:///C:/RecursosAutomation/DiplomaWord.docx"
+                      }
+                    },
+                    {
+                      "name": "openIn",
+                      "value": {
+                        "type": "STRING",
+                        "string": "Read-write"
+                      }
+                    }
+                  ],
+                  "returnTo": {
+                    "type": "SESSION",
+                    "sessionName": {
+                      "type": "STRING",
+                      "string": "DiplomaWord"
+                    },
+                    "sessionTarget": "LOCAL"
+                  }
+                },
+                {
+                  "uid": "a90f0a78-b5f2-44ee-81bf-2446ca82b972",
+                  "commandName": "findAndReplaceText",
+                  "packageName": "msword",
+                  "disabled": false,
+                  "attributes": [
+                    {
+                      "name": "session",
+                      "value": {
+                        "type": "SESSION",
+                        "sessionName": {
+                          "type": "STRING",
+                          "string": "DiplomaWord"
+                        }
+                      }
+                    },
+                    {
+                      "name": "textToFind",
+                      "value": {
+                        "type": "STRING",
+                        "string": "universidad_depa"
+                      }
+                    },
+                    {
+                      "name": "matchCase",
+                      "value": {
+                        "type": "BOOLEAN",
+                        "boolean": false
+                      }
+                    },
+                    {
+                      "name": "wholeWords",
+                      "value": {
+                        "type": "BOOLEAN",
+                        "boolean": false
+                      }
+                    },
+                    {
+                      "name": "range",
+                      "value": {
+                        "type": "STRING",
+                        "string": "Full document"
+                      }
+                    },
+                    {
+                      "name": "isReplaceReqiored",
+                      "value": {
+                        "type": "BOOLEAN",
+                        "boolean": true
+                      }
+                    },
+                    {
+                      "name": "textToReplace",
+                      "value": {
+                        "type": "STRING",
+                        "expression": "La $DiplomaRow[3]$ a través del Departamento de $DiplomaRow[4]$"
+                      }
+                    },
+                    {
+                      "name": "occurrence",
+                      "value": {
+                        "type": "STRING",
+                        "string": "2"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "uid": "ea1654b6-456b-4554-a3eb-c85425c8267d",
+                  "commandName": "findAndReplaceText",
+                  "packageName": "msword",
+                  "disabled": false,
+                  "attributes": [
+                    {
+                      "name": "session",
+                      "value": {
+                        "type": "SESSION",
+                        "sessionName": {
+                          "type": "STRING",
+                          "string": "DiplomaWord"
+                        }
+                      }
+                    },
+                    {
+                      "name": "textToFind",
+                      "value": {
+                        "type": "STRING",
+                        "string": "tipo_certificado"
+                      }
+                    },
+                    {
+                      "name": "matchCase",
+                      "value": {
+                        "type": "BOOLEAN",
+                        "boolean": false
+                      }
+                    },
+                    {
+                      "name": "wholeWords",
+                      "value": {
+                        "type": "BOOLEAN",
+                        "boolean": false
+                      }
+                    },
+                    {
+                      "name": "range",
+                      "value": {
+                        "type": "STRING",
+                        "string": "Full document"
+                      }
+                    },
+                    {
+                      "name": "isReplaceReqiored",
+                      "value": {
+                        "type": "BOOLEAN",
+                        "boolean": true
+                      }
+                    },
+                    {
+                      "name": "textToReplace",
+                      "value": {
+                        "type": "STRING",
+                        "expression": "$DiplomaRow[5]$"
+                      }
+                    },
+                    {
+                      "name": "occurrence",
+                      "value": {
+                        "type": "STRING",
+                        "string": "2"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "uid": "2705a9ec-6ae1-45aa-a4ee-0bc872ff9d33",
+                  "commandName": "findAndReplaceText",
+                  "packageName": "msword",
+                  "disabled": false,
+                  "attributes": [
+                    {
+                      "name": "session",
+                      "value": {
+                        "type": "SESSION",
+                        "sessionName": {
+                          "type": "STRING",
+                          "string": "DiplomaWord"
+                        }
+                      }
+                    },
+                    {
+                      "name": "textToFind",
+                      "value": {
+                        "type": "STRING",
+                        "string": "nombres_participantes"
+                      }
+                    },
+                    {
+                      "name": "matchCase",
+                      "value": {
+                        "type": "BOOLEAN",
+                        "boolean": false
+                      }
+                    },
+                    {
+                      "name": "wholeWords",
+                      "value": {
+                        "type": "BOOLEAN",
+                        "boolean": false
+                      }
+                    },
+                    {
+                      "name": "range",
+                      "value": {
+                        "type": "STRING",
+                        "string": "Full document"
+                      }
+                    },
+                    {
+                      "name": "isReplaceReqiored",
+                      "value": {
+                        "type": "BOOLEAN",
+                        "boolean": true
+                      }
+                    },
+                    {
+                      "name": "textToReplace",
+                      "value": {
+                        "type": "STRING",
+                        "expression": "$NombresAcumulados$"
+                      }
+                    },
+                    {
+                      "name": "occurrence",
+                      "value": {
+                        "type": "STRING",
+                        "string": "2"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "uid": "8212164d-e3f3-44b2-9960-05563c056147",
+                  "commandName": "findAndReplaceText",
+                  "packageName": "msword",
+                  "disabled": false,
+                  "attributes": [
+                    {
+                      "name": "session",
+                      "value": {
+                        "type": "SESSION",
+                        "sessionName": {
+                          "type": "STRING",
+                          "string": "DiplomaWord"
+                        }
+                      }
+                    },
+                    {
+                      "name": "textToFind",
+                      "value": {
+                        "type": "STRING",
+                        "string": "evento_horas"
+                      }
+                    },
+                    {
+                      "name": "matchCase",
+                      "value": {
+                        "type": "BOOLEAN",
+                        "boolean": false
+                      }
+                    },
+                    {
+                      "name": "wholeWords",
+                      "value": {
+                        "type": "BOOLEAN",
+                        "boolean": false
+                      }
+                    },
+                    {
+                      "name": "range",
+                      "value": {
+                        "type": "STRING",
+                        "string": "Full document"
+                      }
+                    },
+                    {
+                      "name": "isReplaceReqiored",
+                      "value": {
+                        "type": "BOOLEAN",
+                        "boolean": true
+                      }
+                    },
+                    {
+                      "name": "textToReplace",
+                      "value": {
+                        "type": "STRING",
+                        "expression": "\"$DiplomaRow[7]$\", con una duración de $DiplomaRow[8]$ horas."
+                      }
+                    },
+                    {
+                      "name": "occurrence",
+                      "value": {
+                        "type": "STRING",
+                        "string": "2"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "uid": "addd46e4-2d9b-4e5d-9865-c6e647e4402d",
+                  "commandName": "findAndReplaceText",
+                  "packageName": "msword",
+                  "disabled": false,
+                  "attributes": [
+                    {
+                      "name": "session",
+                      "value": {
+                        "type": "SESSION",
+                        "sessionName": {
+                          "type": "STRING",
+                          "string": "DiplomaWord"
+                        }
+                      }
+                    },
+                    {
+                      "name": "textToFind",
+                      "value": {
+                        "type": "STRING",
+                        "string": "nombre_evento_fecha_inicio"
+                      }
+                    },
+                    {
+                      "name": "matchCase",
+                      "value": {
+                        "type": "BOOLEAN",
+                        "boolean": false
+                      }
+                    },
+                    {
+                      "name": "wholeWords",
+                      "value": {
+                        "type": "BOOLEAN",
+                        "boolean": false
+                      }
+                    },
+                    {
+                      "name": "range",
+                      "value": {
+                        "type": "STRING",
+                        "string": "Full document"
+                      }
+                    },
+                    {
+                      "name": "isReplaceReqiored",
+                      "value": {
+                        "type": "BOOLEAN",
+                        "boolean": true
+                      }
+                    },
+                    {
+                      "name": "textToReplace",
+                      "value": {
+                        "type": "STRING",
+                        "expression": "En el $DiplomaRow[6]$, realizado del $DiplomaRow[9]$ al $DiplomaRow[10]$ del $DiplomaRow[11]$."
+                      }
+                    },
+                    {
+                      "name": "occurrence",
+                      "value": {
+                        "type": "STRING",
+                        "string": "2"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "uid": "ed708054-6783-4686-b865-b58e5f9d9b29",
+                  "commandName": "findAndReplaceText",
+                  "packageName": "msword",
+                  "disabled": false,
+                  "attributes": [
+                    {
+                      "name": "session",
+                      "value": {
+                        "type": "SESSION",
+                        "sessionName": {
+                          "type": "STRING",
+                          "string": "DiplomaWord"
+                        }
+                      }
+                    },
+                    {
+                      "name": "textToFind",
+                      "value": {
+                        "type": "STRING",
+                        "string": "nombre_impartidor"
+                      }
+                    },
+                    {
+                      "name": "matchCase",
+                      "value": {
+                        "type": "BOOLEAN",
+                        "boolean": false
+                      }
+                    },
+                    {
+                      "name": "wholeWords",
+                      "value": {
+                        "type": "BOOLEAN",
+                        "boolean": false
+                      }
+                    },
+                    {
+                      "name": "range",
+                      "value": {
+                        "type": "STRING",
+                        "string": "Full document"
+                      }
+                    },
+                    {
+                      "name": "isReplaceReqiored",
+                      "value": {
+                        "type": "BOOLEAN",
+                        "boolean": true
+                      }
+                    },
+                    {
+                      "name": "textToReplace",
+                      "value": {
+                        "type": "STRING",
+                        "expression": "$DiplomaRow[12]$"
+                      }
+                    },
+                    {
+                      "name": "occurrence",
+                      "value": {
+                        "type": "STRING",
+                        "string": "2"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "uid": "da3cd087-a3fa-4ae0-a611-28996f162944",
+                  "commandName": "findAndReplaceText",
+                  "packageName": "msword",
+                  "disabled": false,
+                  "attributes": [
+                    {
+                      "name": "session",
+                      "value": {
+                        "type": "SESSION",
+                        "sessionName": {
+                          "type": "STRING",
+                          "string": "DiplomaWord"
+                        }
+                      }
+                    },
+                    {
+                      "name": "textToFind",
+                      "value": {
+                        "type": "STRING",
+                        "string": "puesto_impartidor"
+                      }
+                    },
+                    {
+                      "name": "matchCase",
+                      "value": {
+                        "type": "BOOLEAN",
+                        "boolean": false
+                      }
+                    },
+                    {
+                      "name": "wholeWords",
+                      "value": {
+                        "type": "BOOLEAN",
+                        "boolean": false
+                      }
+                    },
+                    {
+                      "name": "range",
+                      "value": {
+                        "type": "STRING",
+                        "string": "Full document"
+                      }
+                    },
+                    {
+                      "name": "isReplaceReqiored",
+                      "value": {
+                        "type": "BOOLEAN",
+                        "boolean": true
+                      }
+                    },
+                    {
+                      "name": "textToReplace",
+                      "value": {
+                        "type": "STRING",
+                        "expression": "$DiplomaRow[13]$"
+                      }
+                    },
+                    {
+                      "name": "occurrence",
+                      "value": {
+                        "type": "STRING",
+                        "string": "2"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "uid": "dd87499e-68a1-4a4c-b5cd-7cbe9e279013",
+                  "commandName": "findAndReplaceText",
+                  "packageName": "msword",
+                  "disabled": false,
+                  "attributes": [
+                    {
+                      "name": "session",
+                      "value": {
+                        "type": "SESSION",
+                        "sessionName": {
+                          "type": "STRING",
+                          "string": "DiplomaWord"
+                        }
+                      }
+                    },
+                    {
+                      "name": "textToFind",
+                      "value": {
+                        "type": "STRING",
+                        "string": "lugar_fecha"
+                      }
+                    },
+                    {
+                      "name": "matchCase",
+                      "value": {
+                        "type": "BOOLEAN",
+                        "boolean": false
+                      }
+                    },
+                    {
+                      "name": "wholeWords",
+                      "value": {
+                        "type": "BOOLEAN",
+                        "boolean": false
+                      }
+                    },
+                    {
+                      "name": "range",
+                      "value": {
+                        "type": "STRING",
+                        "string": "Full document"
+                      }
+                    },
+                    {
+                      "name": "isReplaceReqiored",
+                      "value": {
+                        "type": "BOOLEAN",
+                        "boolean": true
+                      }
+                    },
+                    {
+                      "name": "textToReplace",
+                      "value": {
+                        "type": "STRING",
+                        "expression": "$DiplomaRow[14]$. $DiplomaRow[15]$."
+                      }
+                    },
+                    {
+                      "name": "occurrence",
+                      "value": {
+                        "type": "STRING",
+                        "string": "2"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "uid": "67b5bb05-9bed-432b-b386-03dfa7625db5",
+                  "commandName": "assign",
+                  "packageName": "String",
+                  "disabled": false,
+                  "attributes": [
+                    {
+                      "name": "sourceString",
+                      "value": {
+                        "type": "STRING",
+                        "expression": "$CarpetaSalida$$DiplomaRow[16]$"
+                      }
+                    }
+                  ],
+                  "returnTo": {
+                    "type": "VARIABLE",
+                    "variableName": "RutaArchivo"
+                  }
+                },
+                {
+                  "uid": "9f107b08-3d95-401a-9786-820425c2e611",
+                  "commandName": "saveDocumentAs",
+                  "packageName": "msword",
+                  "disabled": false,
+                  "attributes": [
+                    {
+                      "name": "session",
+                      "value": {
+                        "type": "SESSION",
+                        "sessionName": {
+                          "type": "STRING",
+                          "string": "DiplomaWord"
+                        }
+                      }
+                    },
+                    {
+                      "name": "filePath",
+                      "value": {
+                        "type": "FILE",
+                        "expression": "file://$RutaArchivo$"
+                      }
+                    },
+                    {
+                      "name": "overwrite",
+                      "value": {
+                        "type": "BOOLEAN",
+                        "boolean": false
+                      }
+                    }
+                  ]
+                },
+                {
+                  "uid": "b3fdf16f-df44-4546-8e43-110a5c8b157b",
+                  "commandName": "closeDocument",
+                  "packageName": "msword",
+                  "disabled": false,
+                  "attributes": [
+                    {
+                      "name": "session",
+                      "value": {
+                        "type": "SESSION",
+                        "sessionName": {
+                          "type": "STRING",
+                          "string": "DiplomaWord"
+                        }
+                      }
+                    },
+                    {
+                      "name": "saveChanges",
+                      "value": {
+                        "type": "BOOLEAN",
+                        "boolean": false
+                      }
+                    }
+                  ]
+                }
+              ],
+              "disabled": false,
+              "attributes": [
+                {
+                  "attributes": [
+                    {
+                      "name": "variable",
+                      "value": {
+                        "type": "STRING",
+                        "expression": "$NombresAcumulados$"
+                      }
+                    },
+                    {
+                      "name": "operator",
+                      "value": {
+                        "type": "STRING",
+                        "string": "NEQ"
+                      }
+                    },
+                    {
+                      "name": "value",
+                      "value": {
+                        "type": "STRING",
+                        "string": ""
+                      }
+                    },
+                    {
+                      "name": "matchCase",
+                      "value": {
+                        "type": "BOOLEAN",
+                        "boolean": true
+                      }
+                    },
+                    {
+                      "name": "isIgnoreCarriage",
+                      "value": {
+                        "type": "BOOLEAN",
+                        "boolean": false
+                      }
+                    }
+                  ],
+                  "name": "condition",
+                  "value": {
+                    "type": "CONDITIONAL",
+                    "conditionalName": "stringVariable",
+                    "packageName": "String"
+                  }
+                }
+              ]
+            }
+          ],
+          "disabled": false,
+          "attributes": [
+            {
+              "attributes": [
+                {
+                  "name": "variable",
+                  "value": {
+                    "type": "STRING",
+                    "expression": "$DiplomaRow[0]$"
+                  }
+                },
+                {
+                  "name": "operator",
+                  "value": {
+                    "type": "STRING",
+                    "string": "EQ"
+                  }
+                },
+                {
+                  "name": "value",
+                  "value": {
+                    "type": "STRING",
+                    "string": "SI"
+                  }
+                },
+                {
+                  "name": "matchCase",
+                  "value": {
+                    "type": "BOOLEAN",
+                    "boolean": true
+                  }
+                },
+                {
+                  "name": "isIgnoreCarriage",
+                  "value": {
+                    "type": "BOOLEAN",
+                    "boolean": false
+                  }
+                }
+              ],
+              "name": "condition",
+              "value": {
+                "type": "CONDITIONAL",
+                "conditionalName": "stringVariable",
+                "packageName": "String"
+              }
+            }
+          ]
+        }
+      ],
+      "disabled": false,
+      "attributes": [
+        {
+          "name": "loopType",
+          "value": {
+            "type": "STRING",
+            "string": "ITERATOR"
+          }
+        },
+        {
+          "name": "iterator",
+          "returnTo": {
+            "type": "VARIABLE",
+            "variableName": "DiplomaRow"
+          },
+          "attributes": [
+            {
+              "name": "sourceTable",
+              "value": {
+                "type": "VARIABLE",
+                "variableName": "TablaDiplomas"
+              }
+            }
+          ],
+          "value": {
+            "type": "ITERATOR",
+            "iteratorName": "iteratorTableRow",
+            "packageName": "DataTable"
+          }
+        }
+      ]
+    }
+  ],
+  "variables": [
+    {
+      "name": "DiplomaRow",
+      "description": "Fila actual de la hoja Diplomas",
+      "type": "RECORD",
+      "readOnly": false,
+      "input": false,
+      "output": false,
+      "defaultValue": {
+        "type": "RECORD",
+        "record": {
+          "schema": [],
+          "values": []
+        }
+      }
+    },
+    {
+      "name": "ParticipanteRow",
+      "description": "Fila actual de la hoja Participantes",
+      "type": "RECORD",
+      "readOnly": false,
+      "input": false,
+      "output": false,
+      "defaultValue": {
+        "type": "RECORD",
+        "record": {
+          "schema": [],
+          "values": []
+        }
+      }
+    },
+    {
+      "name": "TablaDiplomas",
+      "description": "Grupos de diplomas que se generarán",
+      "type": "TABLE",
+      "readOnly": false,
+      "input": false,
+      "output": false,
+      "defaultValue": {
+        "type": "TABLE",
+        "table": {
+          "schema": [
+            {
+              "type": "STRING"
+            }
+          ],
+          "rows": [
+            {
+              "values": [
+                {
+                  "type": "STRING",
+                  "string": ""
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "TablaParticipantes",
+      "description": "Personas asociadas a cada grupo",
+      "type": "TABLE",
+      "readOnly": false,
+      "input": false,
+      "output": false,
+      "defaultValue": {
+        "type": "TABLE",
+        "table": {
+          "schema": [
+            {
+              "type": "STRING"
+            }
+          ],
+          "rows": [
+            {
+              "values": [
+                {
+                  "type": "STRING",
+                  "string": ""
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "NombresAcumulados",
+      "description": "Nombres del grupo unidos para el diploma",
+      "type": "STRING",
+      "readOnly": false,
+      "input": false,
+      "output": false,
+      "defaultValue": {
+        "type": "STRING",
+        "string": ""
+      }
+    },
+    {
+      "name": "CarpetaSalida",
+      "description": "Carpeta local donde el bot guarda los Word; debe existir previamente.",
+      "type": "STRING",
+      "readOnly": false,
+      "input": false,
+      "output": false,
+      "defaultValue": {
+        "type": "STRING",
+        "string": ""
+      }
+    },
+    {
+      "name": "RutaArchivo",
+      "description": "Ruta completa del archivo Word generado en el grupo actual.",
+      "type": "STRING",
+      "readOnly": false,
+      "input": false,
+      "output": false,
+      "defaultValue": {
+        "type": "STRING",
+        "string": ""
+      }
+    }
+  ],
+  "packages": [
+    {
+      "name": "DataTable",
+      "version": "4.15.2",
+      "settingsAttributes": []
+    },
+    {
+      "name": "Excel_MS",
+      "version": "6.23.12",
+      "settingsAttributes": []
+    },
+    {
+      "name": "If",
+      "version": "3.8.0-20241115-115929",
+      "settingsAttributes": []
+    },
+    {
+      "name": "Loop",
+      "version": "3.10.0-20251030-061555",
+      "settingsAttributes": []
+    },
+    {
+      "name": "msword",
+      "version": "1.3.0",
+      "settingsAttributes": []
+    },
+    {
+      "name": "String",
+      "version": "5.11.3",
+      "settingsAttributes": []
+    }
+  ],
+  "properties": {
+    "botCodeVersion": "7",
+    "improvedNumberSupport": true,
+    "timeout": "0s",
+    "automationPriority": "PRIORITY_MEDIUM",
+    "runInChildWindow": false,
+    "runInChildWindowMode": "DESKTOP"
+  },
+  "workItemTemplateName": null
+}
